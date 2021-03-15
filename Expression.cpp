@@ -26,7 +26,7 @@ int MultiplyExpression::evaluate() const {
    return _lhs->evaluate() * _rhs->evaluate();
 }
 
-string MultiplyExpression::toString() const  {
+string MultiplyExpression::toString() const {
    return _lhs->toString() + "*" + _rhs->toString();
 }
 

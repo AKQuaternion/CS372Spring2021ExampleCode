@@ -1,7 +1,7 @@
 //
 // Created by Chris Hartman on 2/10/21.
 //
-#include "catch.hpp"
+#include <catch2/catch.hpp>
 #include "Expression.hpp"
 using std::make_unique;
 
