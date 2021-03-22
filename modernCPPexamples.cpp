@@ -1,8 +1,7 @@
+// This is a personal academic project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 //
 // Created by Chris Hartman on 2/10/21.
-//
-//
-// Created by Chris Hartman on 3/23/20.
 //
 
 #include <iostream>
