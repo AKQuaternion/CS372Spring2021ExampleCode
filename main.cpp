@@ -16,7 +16,37 @@ using std::vector;
 using std::tuple;
 #include <functional>
 #include <map>
+#include "StoreByPointer.hpp"
+#include "StoreByReference.hpp"
+
+void demonstrateStoreByReference() {
+   cout << "\nDemonstrating store by reference:\n";
+   RepairFacility downtown("456 1st Avenue");
+   RepairFacility hillside("123 Oak St.");
+
+   RobotR kim("Kim", downtown);
+   RobotR joe("Joseph", hillside);
+
+   kim.repair();
+   joe.repair();
+}
+
+void demonstrateStoreByPointer() {
+   cout << "\nDemonstrating store by pointer:\n";
+   RepairFacility downtown("456 1st Avenue");
+   RepairFacility hillside("123 Oak St.");
+
+   RobotP kim("Kim", &downtown);
+   RobotP joe("Joseph", &hillside);
+
+   kim.repair();
+   joe.repair();
+
+   kim.changeRepairFacility(&hillside);
+   kim.repair();
+}
 
 int main() {
-
+   demonstrateStoreByReference();
+   demonstrateStoreByPointer();
 }

@@ -12,6 +12,7 @@ class Expression {
 public:
    [[nodiscard]] virtual int evaluate() const = 0;
    [[nodiscard]] virtual std::string toString() const = 0;
+   [[nodiscard]] virtual std::unique_ptr<Expression> clone() const = 0;
    virtual ~Expression() = default;
 };
 
@@ -20,6 +21,7 @@ public:
    [[nodiscard]] int evaluate() const override;
    [[nodiscard]] std::string toString() const override;
    SumExpression(std::unique_ptr<Expression> lhs, std::unique_ptr<Expression> rhs);
+   [[nodiscard]] std::unique_ptr<Expression> clone() const override;
 private:
    std::unique_ptr<Expression> _lhs;
    std::unique_ptr<Expression> _rhs;
@@ -30,6 +32,7 @@ public:
    [[nodiscard]] int evaluate() const override;
    [[nodiscard]] std::string toString() const override;
    MultiplyExpression(std::unique_ptr<Expression> lhs, std::unique_ptr<Expression> rhs);
+   [[nodiscard]] std::unique_ptr<Expression> clone() const override;
 private:
    std::unique_ptr<Expression> _lhs;
    std::unique_ptr<Expression> _rhs;
@@ -40,6 +43,7 @@ public:
    [[nodiscard]] int evaluate() const override;
    [[nodiscard]] std::string toString() const override;
    SubtractExpression(std::unique_ptr<Expression> lhs, std::unique_ptr<Expression> rhs);
+   [[nodiscard]] std::unique_ptr<Expression> clone() const override;
 private:
    std::unique_ptr<Expression> _lhs;
    std::unique_ptr<Expression> _rhs;
@@ -50,6 +54,7 @@ public:
    [[nodiscard]] int evaluate() const override;
    [[nodiscard]] std::string toString() const override;
    DivideExpression(std::unique_ptr<Expression> lhs, std::unique_ptr<Expression> rhs);
+   [[nodiscard]] std::unique_ptr<Expression> clone() const override;
 private:
    std::unique_ptr<Expression> _lhs;
    std::unique_ptr<Expression> _rhs;
@@ -60,7 +65,7 @@ public:
    [[nodiscard]] int evaluate() const override;
    [[nodiscard]] std::string toString() const override;
    explicit NumberExpression(int);
-
+   [[nodiscard]] std::unique_ptr<Expression> clone() const override;
 private:
    int _number;
 };

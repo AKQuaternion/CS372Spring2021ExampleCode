@@ -57,7 +57,7 @@ void async_main() {
       auto processSome = [start,finish,&m]() {
          int numMagicWords = 0;
          std::for_each(start, finish, [&numMagicWords,&m](const auto &word) {
-            if (magicNumber(word) % 1000 == 0) {
+            if (magicNumber(word) % 1000 == 0) { //NOLINT
                ++numMagicWords;
                unique_lock lock(m);
                if(magicNumber(word) % 3 == 0)

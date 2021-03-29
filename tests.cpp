@@ -25,4 +25,7 @@ TEST_CASE("Expressions") {
    REQUIRE(add1234->evaluate()==10);
    auto mul34 = make_unique<MultiplyExpression>(makeNumber(3),makeNumber(4));
    REQUIRE(mul34->evaluate()==12);
+   auto anotherMul34 = mul34->clone();
+   REQUIRE(mul34->evaluate()==12);
+   REQUIRE(anotherMul34->evaluate()==12);
 }
