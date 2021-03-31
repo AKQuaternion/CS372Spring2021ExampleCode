@@ -14,7 +14,7 @@ TEST_CASE("Expressions") {
    REQUIRE(e13->evaluate() == 13);
    auto e24 = make_unique<NumberExpression>(24);
    auto s13_24 = SumExpression(move(e13),move(e24));
-   REQUIRE(s13_24.evaluate()==37);
+//   REQUIRE(e13->evaluate()==13);
    auto add1234 = make_unique<SumExpression>(
          make_unique<SumExpression>(make_unique<NumberExpression>(1),
                                     make_unique<NumberExpression>(2)),
@@ -23,7 +23,7 @@ TEST_CASE("Expressions") {
          );
    std::cout << add1234->toString() << "\n";
    REQUIRE(add1234->evaluate()==10);
-   auto mul34 = make_unique<MultiplyExpression>(makeNumber(3),makeNumber(4));
+   std::unique_ptr<Expression> mul34 = make_unique<MultiplyExpression>(makeNumber(3),makeNumber(4));
    REQUIRE(mul34->evaluate()==12);
    auto anotherMul34 = mul34->clone();
    REQUIRE(mul34->evaluate()==12);

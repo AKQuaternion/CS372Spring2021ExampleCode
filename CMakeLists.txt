@@ -20,9 +20,12 @@ set(Warnings,
 
 add_executable(CS372Spring2021ExampleCode main.cpp modernCPPexamples.cpp
         Expression.cpp Expression.hpp
-        StoreByReference.hpp StoreByPointer.hpp)
+        StoreByReference.hpp StoreByPointer.hpp
+        Observer.cpp Observer.hpp Subject.cpp Subject.hpp
+        )
 target_compile_options(CS372Spring2021ExampleCode PRIVATE ${Warnings})
 
-add_executable(tests catchMain.cpp tests.cpp Expression.cpp Expression.hpp)
+add_executable(tests catchMain.cpp tests.cpp Expression.cpp Expression.hpp
+        )
 target_compile_options(tests PRIVATE ${Warnings})
 target_link_libraries(tests PRIVATE Catch2::Catch2)

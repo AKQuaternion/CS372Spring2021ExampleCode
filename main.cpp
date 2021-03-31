@@ -46,7 +46,41 @@ void demonstrateStoreByPointer() {
    kim.repair();
 }
 
+
+#include "Observer.hpp"
+#include "Subject.hpp"
+
+void demonstrateObserver() {
+   Subject s;
+   using std::make_shared;
+
+   auto co = make_shared<CoutObserver>();
+   auto co2 = make_shared<CoutObserver>();
+   auto bo = make_shared<BarGraphObserver>();
+   s.attach(co);
+   s.attach(co);
+   cout << "\u001b[32mClient attached two copies of CoutObserver1.\u001b[0m\n";
+   s.attach(co2);
+   cout << "\u001b[32mClient attached one copy of CoutObserver2.\u001b[0m\n";
+   s.attach(bo);
+   cout << "\u001b[32mClient attached one copy of BarGraphObserver.\u001b[0m\n";
+
+   cout << "\u001b[32mClient setting n to 13:\u001b[0m\n";
+   s.setN(13);
+
+   s.detach(co2);
+   cout << "\u001b[32mClient detached CoutObserver2.\u001b[0m\n";
+
+   cout << "\u001b[32mClient setting n to 67:\u001b[0m\n";
+   s.setN(67);
+
+   s.detach(co);
+   cout << "\u001b[32mClient detached CoutObserver1.\u001b[0m\n";
+
+   cout << "\u001b[32mClient setting n to 1:\u001b[0m\n";
+   s.setN(1);
+}
+
 int main() {
-   demonstrateStoreByReference();
-   demonstrateStoreByPointer();
+   demonstrateObserver();
 }
