@@ -24,3 +24,11 @@ void BarGraphObserver::update (int n) const
     cout << endl;
 }
 
+AlarmObserver::AlarmObserver(int alarmValue):_alarmValue(alarmValue){
+}
+
+void AlarmObserver::update (int n) const
+{
+   if(n>_alarmValue)
+      cout << "ALARM!!!\n";
+}

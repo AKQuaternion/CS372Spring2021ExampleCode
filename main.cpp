@@ -65,6 +65,9 @@ void demonstrateObserver() {
    s.attach(bo);
    cout << "\u001b[32mClient attached one copy of BarGraphObserver.\u001b[0m\n";
 
+   s.attach(make_shared<AlarmObserver>(50));
+   cout << "\u001b[32mClient attached one copy of AlarmObserver(50).\u001b[0m\n";
+
    cout << "\u001b[32mClient setting n to 13:\u001b[0m\n";
    s.setN(13);
 

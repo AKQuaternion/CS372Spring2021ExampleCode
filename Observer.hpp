@@ -23,4 +23,12 @@ class BarGraphObserver : public Observer {
 public:
     void update (int n) const override;
 };
+
+class AlarmObserver : public Observer {
+public:
+   explicit AlarmObserver(int alarmValue);
+   void update (int n) const override;
+private:
+   int _alarmValue;
+};
 #endif /* Observer_hpp */
