@@ -22,6 +22,7 @@ add_executable(CS372Spring2021ExampleCode main.cpp modernCPPexamples.cpp
         Expression.cpp Expression.hpp
         StoreByReference.hpp StoreByPointer.hpp
         Observer.cpp Observer.hpp Subject.cpp Subject.hpp
+        Armor.cpp Armor.hpp
         )
 target_compile_options(CS372Spring2021ExampleCode PRIVATE ${Warnings})
 
