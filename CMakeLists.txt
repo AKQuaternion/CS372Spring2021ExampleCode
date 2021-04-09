@@ -23,6 +23,9 @@ add_executable(CS372Spring2021ExampleCode main.cpp modernCPPexamples.cpp
         StoreByReference.hpp StoreByPointer.hpp
         Observer.cpp Observer.hpp Subject.cpp Subject.hpp
         Armor.cpp Armor.hpp
+        Door.cpp Door.hpp
+        HomeAutomationComponent.hpp HomeAutomationComponent.cpp
+        Command.cpp Command.hpp
         )
 target_compile_options(CS372Spring2021ExampleCode PRIVATE ${Warnings})
 

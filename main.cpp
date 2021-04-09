@@ -14,10 +14,10 @@ using std::vector;
 #include <string>
 #include <tuple>
 using std::tuple;
-#include <functional>
-#include <map>
 #include "StoreByPointer.hpp"
 #include "StoreByReference.hpp"
+#include <functional>
+#include <map>
 #include <memory>
 using std::make_unique;
 using std::unique_ptr;
@@ -106,6 +106,90 @@ void demonstrateDecorator() {
         << endl;
 }
 
+using std::make_shared;
+using std::shared_ptr;
+
+#include "Command.hpp"
+#include "HomeAutomationComponent.hpp"
+//
+//[[noreturn]] void demonstrateCommand() {
+//   //   SayHiCommand x;
+//   //   x.execute();
+//   //
+//   //   auto f = make_shared<FanObject>();
+//   //   f->on();
+//   //   f->off();
+//   auto l = make_shared<LightObject>();
+//   //   l->on();
+//   //   l->off();
+//   //   auto s = make_shared<StereoObject>();
+//   //   s->on();
+//   //   s->off();
+//   //
+//   //   HACOnCommand fanOnCommand(f);
+//   //   fanOnCommand.execute();
+//
+//   vector<shared_ptr<Command>> v(10, make_shared<NullCommand>());
+//   v[0] = make_shared<SayHiCommand>();
+//   v[1] = make_shared<HACOnCommand>(l);
+//   v[2] = make_shared<HACOffCommand>(l);
+//   v[3] = make_shared<VoidFunctionCommand>(demonstrateDecorator);
+//   v[4] = make_shared<VoidFunctionCommand>([]() { cout << "It's Friday!\n"; });
+//   v[9] = make_shared<ExitCommand>();
+//   v[5] = make_shared<MacroCommand>(
+//         vector<shared_ptr<Command>>({v[0], v[1], v[2], v[3], v[4]}));
+//   auto doorHAC = make_shared<DoorAdapter>(make_shared<HouseDoor>());
+//   v[6] = make_shared<HACOnCommand>(doorHAC);
+//   while (true) {
+//      cout << "What button? ";
+//      unsigned int button;
+//      std::cin >> button;
+//      v[button]->execute();
+//   }
+//
+//   //   ExitCommand ex;
+//   //   ex.execute();
+//}
+using std::cin;
+
+void foo() {
+   cout << "You called foo!";
+}
+
+void menuSystem() {
+   vector<shared_ptr<Command>> menu(10, make_shared<NullCommand>());
+
+   shared_ptr<HomeAutomationComponent> light = make_shared<LightObject>();
+   shared_ptr<HomeAutomationComponent> fan = make_shared<FanObject>();
+   shared_ptr<HomeAutomationComponent> stereo = make_shared<StereoObject>();
+
+   //   stereo->off();
+   //   stereo->off();
+   //   fan->on();
+   //   light->on();
+   menu[0] = make_shared<HACOnCommand>(light);
+   menu[1] = make_shared<HACOffCommand>(light);
+   menu[2] = make_shared<HACOnCommand>(fan);
+   menu[3] = make_shared<HACOffCommand>(fan);
+   menu[4] = make_shared<HACOnCommand>(stereo);
+   menu[5] = make_shared<HACOffCommand>(stereo);
+   menu[6] = make_shared<VoidFunctionCommand>([]() {
+      for (int i = 0; i < 10; ++i)
+         cout << i << " ";
+      cout << endl;
+   });
+   menu[7] = make_shared<VoidFunctionCommand>(foo);
+   shared_ptr<Command> exit = make_shared<ExitCommand>();
+   menu[9] = make_shared<MacroCommand>(vector<shared_ptr<Command>>{menu[1],menu[3],menu[5],exit});
+   while (true) {
+      cout << "What command? ";
+      int com;
+      cin >> com;
+      menu[com]->execute();
+   }
+}
+
 int main() {
-   demonstrateDecorator();
+   menuSystem();
+   //   demonstrateDecorator();
 }
