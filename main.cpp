@@ -197,6 +197,7 @@ void foo() {
 using std::make_shared;
 
 #include "Composite.hpp"
+#include "Visitor.hpp"
 
 void demonstrateComposite() {
    auto f1 = make_unique<File>("f1", 1);
@@ -210,6 +211,9 @@ void demonstrateComposite() {
    folder1->remove("f2");
    cout << folder1->getName() << " " << folder1->getSize() << endl;
    folder1->print();
+   cout << "\n";
+   PrintVisitor pv;
+   folder1->accept(&pv);
 }
 
 

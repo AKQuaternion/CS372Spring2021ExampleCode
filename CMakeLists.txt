@@ -27,6 +27,7 @@ add_executable(CS372Spring2021ExampleCode main.cpp modernCPPexamples.cpp
         HomeAutomationComponent.hpp HomeAutomationComponent.cpp
         Command.cpp Command.hpp
         Composite.hpp Composite.cpp
+        Visitor.cpp Visitor.hpp
         )
 
 target_compile_options(CS372Spring2021ExampleCode PRIVATE ${Warnings})
