@@ -156,7 +156,7 @@ void foo() {
    cout << "You called foo!";
 }
 
-void menuSystem() {
+[[noreturn]] void menuSystem() {
    vector<shared_ptr<Command>> menu(10, make_shared<NullCommand>());
 
    shared_ptr<HomeAutomationComponent> light = make_shared<LightObject>();
@@ -180,7 +180,12 @@ void menuSystem() {
    });
    menu[7] = make_shared<VoidFunctionCommand>(foo);
    shared_ptr<Command> exit = make_shared<ExitCommand>();
-   menu[9] = make_shared<MacroCommand>(vector<shared_ptr<Command>>{menu[1],menu[3],menu[5],exit});
+   shared_ptr<Door> hd = make_shared<HouseDoor>();
+   hd->open();
+
+   menu[8] = make_shared<HACOnCommand>(make_shared<DoorAdapter>(hd));
+
+   menu[9] = make_shared<MacroCommand>(vector<shared_ptr<Command>>{menu[1], menu[3], menu[5], exit});
    while (true) {
       cout << "What command? ";
       int com;
@@ -189,7 +194,68 @@ void menuSystem() {
    }
 }
 
+using std::make_shared;
+
+struct TreeNodeBase {
+   virtual ~TreeNodeBase() = default;
+   [[nodiscard]] virtual int size() const = 0;
+   [[nodiscard]] virtual shared_ptr<TreeNodeBase> getLeft() const = 0;
+   [[nodiscard]] virtual shared_ptr<TreeNodeBase> getRight() const = 0;
+   [[nodiscard]] virtual int getData() const = 0;
+};
+
+struct NullTreeNode : public TreeNodeBase {
+   [[nodiscard]] int size() const override {
+      return 0;
+   }
+   [[nodiscard]] shared_ptr<TreeNodeBase> getLeft() const override {
+      return nullptr;
+   }
+   [[nodiscard]] shared_ptr<TreeNodeBase> getRight() const override {
+      return nullptr;
+   }
+   [[nodiscard]] virtual int getData() const override {
+      return 0;
+   }
+};
+
+struct DataTreeNode : public TreeNodeBase {
+   DataTreeNode(int data, shared_ptr<TreeNodeBase> left, shared_ptr<TreeNodeBase> right)
+       : _data(data), _left(move(left)), _right(move(right)) {}
+
+   [[nodiscard]] int size() const override {
+      return _left->size() + _right->size() + 1;
+   }
+   [[nodiscard]] shared_ptr<TreeNodeBase> getLeft() const override {
+      return _left;
+   }
+   [[nodiscard]] shared_ptr<TreeNodeBase> getRight() const override {
+      return _right;
+   }
+   [[nodiscard]] int getData() const override {
+      return _data;
+   }
+
+   int _data;
+   shared_ptr<TreeNodeBase> _left = make_shared<NullTreeNode>();
+   shared_ptr<TreeNodeBase> _right = make_shared<NullTreeNode>();
+};
+
 int main() {
-   menuSystem();
+//   shared_ptr<TreeNodeBase> nullTree = make_shared<NullTreeNode>();
+//   shared_ptr<TreeNodeBase> tree = make_shared<DataTreeNode>(1,
+//                                                             make_shared<DataTreeNode>(2,
+//                                                                                       nullTree,
+//                                                                                       make_shared<DataTreeNode>(3,
+//                                                                                                                 nullTree,
+//                                                                                                                 nullTree)),
+//                                                             make_shared<DataTreeNode>(4,
+//                                                                                       make_shared<DataTreeNode>(5,
+//                                                                                                                 nullTree,
+//                                                                                                                 nullTree),
+//                                                                                       nullTree));
+//
+//   cout << tree->size() << endl;
+      menuSystem();
    //   demonstrateDecorator();
 }
