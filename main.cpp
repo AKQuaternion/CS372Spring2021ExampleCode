@@ -196,66 +196,25 @@ void foo() {
 
 using std::make_shared;
 
-struct TreeNodeBase {
-   virtual ~TreeNodeBase() = default;
-   [[nodiscard]] virtual int size() const = 0;
-   [[nodiscard]] virtual shared_ptr<TreeNodeBase> getLeft() const = 0;
-   [[nodiscard]] virtual shared_ptr<TreeNodeBase> getRight() const = 0;
-   [[nodiscard]] virtual int getData() const = 0;
-};
+#include "Composite.hpp"
 
-struct NullTreeNode : public TreeNodeBase {
-   [[nodiscard]] int size() const override {
-      return 0;
-   }
-   [[nodiscard]] shared_ptr<TreeNodeBase> getLeft() const override {
-      return nullptr;
-   }
-   [[nodiscard]] shared_ptr<TreeNodeBase> getRight() const override {
-      return nullptr;
-   }
-   [[nodiscard]] virtual int getData() const override {
-      return 0;
-   }
-};
+void demonstrateComposite() {
+   auto f1 = make_unique<File>("f1", 1);
+   cout << f1->getName() << " " << f1->getSize() << endl;
+   auto folder1 = make_unique<Folder>("folder1");
+   folder1->add(move(f1));
+   cout << folder1->getName() << " " << folder1->getSize() << endl;
+   folder1->add(make_unique<File>("f2", 2));
+   folder1->add(make_unique<File>("f3", 3));
+   cout << folder1->getName() << " " << folder1->getSize() << endl;
+   folder1->remove("f2");
+   cout << folder1->getName() << " " << folder1->getSize() << endl;
+   folder1->print();
+}
 
-struct DataTreeNode : public TreeNodeBase {
-   DataTreeNode(int data, shared_ptr<TreeNodeBase> left, shared_ptr<TreeNodeBase> right)
-       : _data(data), _left(move(left)), _right(move(right)) {}
-
-   [[nodiscard]] int size() const override {
-      return _left->size() + _right->size() + 1;
-   }
-   [[nodiscard]] shared_ptr<TreeNodeBase> getLeft() const override {
-      return _left;
-   }
-   [[nodiscard]] shared_ptr<TreeNodeBase> getRight() const override {
-      return _right;
-   }
-   [[nodiscard]] int getData() const override {
-      return _data;
-   }
-
-   int _data;
-   shared_ptr<TreeNodeBase> _left = make_shared<NullTreeNode>();
-   shared_ptr<TreeNodeBase> _right = make_shared<NullTreeNode>();
-};
 
 int main() {
-//   shared_ptr<TreeNodeBase> nullTree = make_shared<NullTreeNode>();
-//   shared_ptr<TreeNodeBase> tree = make_shared<DataTreeNode>(1,
-//                                                             make_shared<DataTreeNode>(2,
-//                                                                                       nullTree,
-//                                                                                       make_shared<DataTreeNode>(3,
-//                                                                                                                 nullTree,
-//                                                                                                                 nullTree)),
-//                                                             make_shared<DataTreeNode>(4,
-//                                                                                       make_shared<DataTreeNode>(5,
-//                                                                                                                 nullTree,
-//                                                                                                                 nullTree),
-//                                                                                       nullTree));
-//
-//   cout << tree->size() << endl;
-      menuSystem();
+   demonstrateComposite();
+   //      menuSystem();
    //   demonstrateDecorator();
 }

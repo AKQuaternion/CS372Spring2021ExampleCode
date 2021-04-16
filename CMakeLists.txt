@@ -26,7 +26,9 @@ add_executable(CS372Spring2021ExampleCode main.cpp modernCPPexamples.cpp
         Door.cpp Door.hpp
         HomeAutomationComponent.hpp HomeAutomationComponent.cpp
         Command.cpp Command.hpp
+        Composite.hpp Composite.cpp
         )
+
 target_compile_options(CS372Spring2021ExampleCode PRIVATE ${Warnings})
 
 add_executable(tests catchMain.cpp tests.cpp Expression.cpp Expression.hpp
