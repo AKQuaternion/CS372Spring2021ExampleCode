@@ -216,9 +216,25 @@ void demonstrateComposite() {
    folder1->accept(&pv);
 }
 
+#include "MP3Player.hpp"
+#include "MP3PlayerState.hpp"
+
+void demonstrateState() {
+   MP3Player myMp3;
+   myMp3.pushNextButton();     //nothing
+   myMp3.pushSourceButton();   //Switch to radio (start playing radio)
+   myMp3.pushNextButton();     //Next radio station
+   myMp3.pushSourceButton();   //Switch to MP3 (stop playing radio, start playing MP3)
+   myMp3.pushNextButton();     //Next track
+   myMp3.pushNextButton();     //Next track
+   myMp3.pushSourceButton();   //Switch to off (stop mp3)
+   myMp3.pushNextButton();     //nothing
+   myMp3.pushSourceButton();   //Switch to radio (start playing radio)
+}
+
 
 int main() {
-   demonstrateComposite();
+   demonstrateState();
    //      menuSystem();
    //   demonstrateDecorator();
 }
