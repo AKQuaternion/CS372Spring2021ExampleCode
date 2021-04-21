@@ -21,6 +21,7 @@ public:
    [[nodiscard]] int evaluate() const override;
    [[nodiscard]] std::string toString() const override;
    SumExpression(std::unique_ptr<Expression> lhs, std::unique_ptr<Expression> rhs);
+   SumExpression(const SumExpression& orig);
    [[nodiscard]] std::unique_ptr<Expression> clone() const override;
 private:
    std::unique_ptr<Expression> _lhs;
@@ -32,6 +33,7 @@ public:
    [[nodiscard]] int evaluate() const override;
    [[nodiscard]] std::string toString() const override;
    MultiplyExpression(std::unique_ptr<Expression> lhs, std::unique_ptr<Expression> rhs);
+   MultiplyExpression(const MultiplyExpression& orig);
    [[nodiscard]] std::unique_ptr<Expression> clone() const override;
 private:
    std::unique_ptr<Expression> _lhs;
@@ -43,6 +45,7 @@ public:
    [[nodiscard]] int evaluate() const override;
    [[nodiscard]] std::string toString() const override;
    SubtractExpression(std::unique_ptr<Expression> lhs, std::unique_ptr<Expression> rhs);
+   SubtractExpression(const SubtractExpression& orig);
    [[nodiscard]] std::unique_ptr<Expression> clone() const override;
 private:
    std::unique_ptr<Expression> _lhs;
@@ -54,6 +57,7 @@ public:
    [[nodiscard]] int evaluate() const override;
    [[nodiscard]] std::string toString() const override;
    DivideExpression(std::unique_ptr<Expression> lhs, std::unique_ptr<Expression> rhs);
+   DivideExpression(const DivideExpression& orig);
    [[nodiscard]] std::unique_ptr<Expression> clone() const override;
 private:
    std::unique_ptr<Expression> _lhs;

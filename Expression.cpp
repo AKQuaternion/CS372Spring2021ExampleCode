@@ -12,6 +12,9 @@ SumExpression::SumExpression(std::unique_ptr<Expression> lhs, std::unique_ptr<Ex
    :_lhs(move(lhs)),_rhs(move(rhs))
 {}
 
+SumExpression::SumExpression(const SumExpression &orig):_lhs(orig._lhs->clone()),_rhs(orig._rhs->clone()) {
+}
+
 int SumExpression::evaluate() const {
    return _lhs->evaluate() + _rhs->evaluate();
 }
@@ -21,12 +24,15 @@ string SumExpression::toString() const  {
 }
 
 std::unique_ptr<Expression> SumExpression::clone() const {
-   return std::make_unique<SumExpression>(_lhs->clone(),_rhs->clone());
+   return std::make_unique<SumExpression>(*this);
 }
 
 MultiplyExpression::MultiplyExpression(std::unique_ptr<Expression> lhs, std::unique_ptr<Expression> rhs)
       :_lhs(move(lhs)),_rhs(move(rhs))
 {}
+
+MultiplyExpression::MultiplyExpression(const MultiplyExpression &orig):_lhs(orig._lhs->clone()),_rhs(orig._rhs->clone()) {
+}
 
 int MultiplyExpression::evaluate() const {
    return _lhs->evaluate() * _rhs->evaluate();
@@ -37,12 +43,15 @@ string MultiplyExpression::toString() const {
 }
 
 std::unique_ptr<Expression> MultiplyExpression::clone() const {
-   return std::make_unique<MultiplyExpression>(_lhs->clone(),_rhs->clone());
+   return std::make_unique<MultiplyExpression>(*this);
 }
 
 SubtractExpression::SubtractExpression(std::unique_ptr<Expression> lhs, std::unique_ptr<Expression> rhs)
       :_lhs(move(lhs)),_rhs(move(rhs))
 {}
+
+SubtractExpression::SubtractExpression(const SubtractExpression &orig):_lhs(orig._lhs->clone()),_rhs(orig._rhs->clone()) {
+}
 
 int SubtractExpression::evaluate() const {
    return _lhs->evaluate() - _rhs->evaluate();
@@ -52,22 +61,26 @@ string SubtractExpression::toString() const  {
 }
 
 std::unique_ptr<Expression> SubtractExpression::clone() const {
-   return std::make_unique<SubtractExpression>(_lhs->clone(),_rhs->clone());
+   return std::make_unique<SubtractExpression>(*this);
 }
 
 DivideExpression::DivideExpression(std::unique_ptr<Expression> lhs, std::unique_ptr<Expression> rhs)
       :_lhs(move(lhs)),_rhs(move(rhs))
 {}
 
+DivideExpression::DivideExpression(const DivideExpression &orig):_lhs(orig._lhs->clone()),_rhs(orig._rhs->clone()) {
+}
+
 int DivideExpression::evaluate() const {
    return _lhs->evaluate() / _rhs->evaluate();
 }
+
 string DivideExpression::toString() const  {
    return _lhs->toString() + "/" + _rhs->toString();
 }
 
 std::unique_ptr<Expression> DivideExpression::clone() const {
-   return std::make_unique<DivideExpression>(_lhs->clone(),_rhs->clone());
+   return std::make_unique<DivideExpression>(*this);
 }
 
 NumberExpression::NumberExpression(int num) : _number(num)
@@ -82,5 +95,6 @@ string NumberExpression::toString() const  {
 }
 
 std::unique_ptr<Expression> NumberExpression::clone() const {
-   return std::make_unique<NumberExpression>(_number);
+   return std::make_unique<NumberExpression>(*this);
 }
+
