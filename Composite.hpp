@@ -6,7 +6,7 @@
 #include <string_view>
 #include <vector>
 
-class Visitor;
+#include "Visitor.hpp"
 
 class ComponentBase {
 public:
@@ -21,24 +21,31 @@ private:
    const std::string _name;
 };
 
-class File : public ComponentBase {
+template <typename T>
+class ComponentBaseCRTP : public ComponentBase {
+   using ComponentBase::ComponentBase;
+public:
+   void accept(Visitor *v) const override {
+      v->visit(static_cast<const T*>(this));
+   }
+};
+
+class File : public ComponentBaseCRTP<File> {
 public:
    File(std::string_view name, int size);
    void print() const override;
-   void accept(Visitor *v) const override;
    [[nodiscard]] int getSize() const override;
 
 private:
    int _size;
 };
 
-class Folder : public ComponentBase {
+class Folder : public  ComponentBaseCRTP<Folder> {
 public:
-   using ComponentBase::ComponentBase;
+   using ComponentBaseCRTP<Folder>::ComponentBaseCRTP;
    using ChildContainer = std::vector<std::unique_ptr<ComponentBase>>;
    void print() const override;
    [[nodiscard]] int getSize() const override;
-   void accept(Visitor *v) const override;
    void add(std::unique_ptr<ComponentBase>);
    void remove(std::string_view name);
    [[nodiscard]] const ChildContainer &getChildren() const;

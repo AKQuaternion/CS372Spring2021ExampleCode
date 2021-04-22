@@ -7,6 +7,7 @@
 //
 
 #include "Visitor.hpp"
+#include "Composite.hpp"
 #include <iostream>
 #include <string>
 using std::cout;

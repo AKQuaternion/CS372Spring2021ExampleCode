@@ -9,7 +9,9 @@
 #ifndef CS372SPRING2021EXAMPLECODE_VISITOR_HPP
 #define CS372SPRING2021EXAMPLECODE_VISITOR_HPP
 
-#include "Composite.hpp"
+class File;
+class Folder;
+#include <cstddef>
 
 class Visitor {
 public:
@@ -30,8 +32,8 @@ class SizeVisitor : public Visitor {
 public:
     virtual void visit(const File *);
     virtual void visit(const Folder *);
-    size_t getSize() const {return _size;}
+    std::size_t getSize() const {return _size;}
 private:
-    size_t _size=0;
+   std::size_t _size=0;
 };
 #endif /* Visitor_hpp */

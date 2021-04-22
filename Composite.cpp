@@ -22,7 +22,7 @@ std::string ComponentBase::getName() const {
    return _name;
 }
 
-File::File(std::string_view name, int size) : ComponentBase(name), _size(size) {}
+File::File(std::string_view name, int size) : ComponentBaseCRTP<File>(name), _size(size) {}
 
 void File::print() const {
    cout << getName() << "   " << _size;
@@ -30,10 +30,6 @@ void File::print() const {
 
 int File::getSize() const {
    return _size;
-}
-
-void File::accept(Visitor *v) const {
-   v->visit(this);
 }
 
 void Folder::print() const {
@@ -45,10 +41,6 @@ int Folder::getSize() const {
    for (const auto &c : _children)
       total += c->getSize();
    return total;
-}
-
-void Folder::accept(Visitor *v) const {
-   v->visit(this);
 }
 
 void Folder::add(std::unique_ptr<ComponentBase> child) {

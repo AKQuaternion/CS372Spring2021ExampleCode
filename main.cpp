@@ -234,7 +234,8 @@ void demonstrateState() {
 
 
 int main() {
-   demonstrateState();
+   demonstrateComposite();
+//   demonstrateState();
    //      menuSystem();
    //   demonstrateDecorator();
 }

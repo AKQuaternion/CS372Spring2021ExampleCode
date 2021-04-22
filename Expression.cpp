@@ -56,6 +56,7 @@ SubtractExpression::SubtractExpression(const SubtractExpression &orig):_lhs(orig
 int SubtractExpression::evaluate() const {
    return _lhs->evaluate() - _rhs->evaluate();
 }
+
 string SubtractExpression::toString() const  {
    return _lhs->toString() + "-" + _rhs->toString();
 }
